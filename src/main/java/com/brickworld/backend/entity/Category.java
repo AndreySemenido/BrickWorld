@@ -1,6 +1,8 @@
 package com.brickworld.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,13 +16,14 @@ public class Category {
     @Column(nullable = false, unique = true)
     private String name;
 
-    // Опционально: связь с продуктами
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    // Полноценная связь с продуктами
+    @OneToMany(mappedBy = "category")
+    @JsonManagedReference
     private List<Product> products;
 
+
     // Конструкторы
-    public Category() {
-    }
+    public Category() {}
 
     public Category(String name) {
         this.name = name;
@@ -49,5 +52,16 @@ public class Category {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    // Удобные методы для добавления/удаления продукта
+    public void addProduct(Product product) {
+        products.add(product);
+        product.setCategory(this);
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
+        product.setCategory(null);
     }
 }

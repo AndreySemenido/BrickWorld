@@ -1,5 +1,6 @@
 package com.brickworld.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -30,11 +31,12 @@ public class Product {
     // Связь с категорией
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonBackReference
     private Category category;
 
+
     // Конструкторы
-    public Product() {
-    }
+    public Product() {}
 
     public Product(String name, String description, Double price, Integer piecesCount, Integer ageFrom, String imageUrl, Category category) {
         this.name = name;
@@ -47,67 +49,27 @@ public class Product {
     }
 
     // Геттеры и сеттеры
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getName() {
-        return name;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public Double getPrice() { return price; }
+    public void setPrice(Double price) { this.price = price; }
 
-    public String getDescription() {
-        return description;
-    }
+    public Integer getPiecesCount() { return piecesCount; }
+    public void setPiecesCount(Integer piecesCount) { this.piecesCount = piecesCount; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public Integer getAgeFrom() { return ageFrom; }
+    public void setAgeFrom(Integer ageFrom) { this.ageFrom = ageFrom; }
 
-    public Double getPrice() {
-        return price;
-    }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Integer getPiecesCount() {
-        return piecesCount;
-    }
-
-    public void setPiecesCount(Integer piecesCount) {
-        this.piecesCount = piecesCount;
-    }
-
-    public Integer getAgeFrom() {
-        return ageFrom;
-    }
-
-    public void setAgeFrom(Integer ageFrom) {
-        this.ageFrom = ageFrom;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+    public Category getCategory() { return category; }
+    public void setCategory(Category category) { this.category = category; }
 }
